@@ -32,13 +32,11 @@ const HomePage = () => {
                 <hr/>
                 <NotesList notes={notes} onRemove={removeNote}/>
             </div>
-            
         </div>
     ) : (
         <Redirect to="/login" />
     )
 }
-
 export default HomePage
 
 

@@ -1,17 +1,12 @@
-import { Form } from "./Form";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {setUser} from 'store/slice/userSlice';
 import {getAuth,signInWithEmailAndPassword} from 'firebase/auth';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-Notify.init ({
-    position: 'center-top',
-    distance: '80px',
-    timeout: 2000,
-    cssAnimationStyle: 'from-top',
-    showOnlyTheLastOne: true,
-});
+
 const Login = () => {
+    const [email,setEmail] = useState('');
+    const [pass,setPass] = useState('');
     const dispatch = useDispatch();
     const {push} =useHistory();
     const handelLogin=(email,password)=>{
@@ -29,14 +24,34 @@ const Login = () => {
         .catch(alert('Wrong username or password') );
       
         if(email.length === 0 || password.length === 0){
-            return Notify.warning('Sorry, there are no images matching your search query. Please try again.');
+           
         }
     }
   return (
-    <Form
-        title="Sign in"
-        handelClick={handelLogin}
-    />)
+    <div className='form'>
+    <input 
+    className='form-input form-input-email'
+        type="email" 
+        name=""
+        id=""
+        value={email} 
+        onChange={(e)=>setEmail(e.target.value)}
+        placeholder='email'/>
+    <input
+      className='form-input form-input-password'
+        type="password"
+        name="" id="" 
+        value={pass}
+        onChange={(e)=>setPass(e.target.value)}
+        placeholder='password'/>
+
+        <button
+        className='form-button'
+        onClick={()=>handelLogin(email,pass)}>
+          Login
+        </button>
+    </div>
+)
 }
 
 export {Login}
